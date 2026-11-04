@@ -1,0 +1,18 @@
+{
+  "name": "minhas-vagas",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test --test-isolation=none tests/*.test.js",
+    "test:browser": "node tests/browser-check.mjs",
+    "build": "node scripts/build-single.mjs",
+    "test:bundle": "npm run build && node tests/browser-check.mjs --single",
+    "build:site": "node scripts/build-static.mjs",
+    "test:site": "node tests/browser-check.mjs --static"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}

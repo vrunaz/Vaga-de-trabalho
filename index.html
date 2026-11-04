@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f5f7f6"><meta name="description" content="Organize suas oportunidades e acompanhe cada passo da sua próxima conquista.">
+<title>Minhas Vagas · Seu próximo passo</title><link rel="stylesheet" href="/styles.css"><script type="module" src="/app.js"></script>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+  <a class="brand" href="/" aria-label="Minhas Vagas, início"><span class="brand-icon">m<span>v</span><i></i></span><span>minhas<span class="brand-light">vagas</span><small>SEU PRÓXIMO PASSO</small></span></a>
+  <div class="nav-label">SEU ESPAÇO</div>
+  <a class="nav-item active" href="#oportunidades"><span aria-hidden="true">▦</span> Minhas oportunidades <span class="nav-count" id="nav-count">0</span></a>
+  <button class="nav-item" id="discover-nav"><span aria-hidden="true">⌕</span> Buscar vagas</button>
+  <button class="nav-item" id="backup-nav"><span aria-hidden="true">⇅</span> Backup e dados</button>
+  <div class="location-card"><span class="location-pin" aria-hidden="true">⌖</span><strong>De Belém para o mundo.</strong><p>Presencial e híbrido em Belém.<br>Remoto de onde você está.</p><span class="location-tag"><i></i> Belém, Pará</span></div>
+  <div class="sidebar-footer"><span class="privacy-dot"></span> Seu espaço, seus dados.<small>Salvos apenas neste navegador.</small></div>
+</aside>
+<main>
+  <header class="topbar"><div><span class="breadcrumb">Meu espaço</span><span class="crumb-divider">/</span><strong>Minhas oportunidades</strong></div><button class="text-button" id="help-button"><span aria-hidden="true">ⓘ</span> Como funciona</button></header>
+  <div class="content">
+    <section class="page-heading"><div><div class="eyebrow">UM PASSO DE CADA VEZ</div><h1>Seu próximo capítulo<br class="mobile-break"> começa aqui<span>.</span></h1><p>Organize suas oportunidades e acompanhe cada conquista.</p></div><button class="button primary" id="add-job"><span aria-hidden="true">＋</span> Cadastrar vaga</button></section>
+    <div class="workspace-tabs" role="tablist" aria-label="Organizar ou buscar oportunidades"><button id="saved-tab" role="tab" aria-selected="true" aria-controls="saved-workspace" class="workspace-tab selected">Minhas vagas</button><button id="discover-tab" role="tab" aria-selected="false" aria-controls="discover-panel" class="workspace-tab">⌕ Buscar vagas para mim</button></div>
+    <section id="discover-panel" role="tabpanel" aria-labelledby="discover-tab" hidden>
+      <div class="discovery-intro"><div><div class="eyebrow">OPORTUNIDADES PARA SEU MOMENTO</div><h2>Encontre seu próximo passo.</h2><p>Farmácia, atendimento, recepção, vendas, administrativo e ensino médio. Flexibilidade vem primeiro, sem esconder as outras opções.</p></div><button id="refresh-discovery" class="button primary">Buscar agora</button></div>
+      <div class="profile-summary"><span>⌖ Presencial e híbrido: Belém (PA)</span><span>↗ Remoto: Brasil e internacional com atuação de Belém</span><span>♡ Graduanda em Farmácia · experiência em atendimento e vendas</span></div>
+      <div class="discovery-filters"><label class="search-field"><span aria-hidden="true">⌕</span><input id="discovery-search" type="search" placeholder="Refinar por cargo, empresa ou palavra" aria-label="Refinar vagas encontradas"></label><select id="discovery-mode" aria-label="Modalidade das vagas encontradas"><option value="">Todas as modalidades</option><option>Presencial</option><option>Híbrida</option><option>Remota</option></select><label class="check-filter"><input type="checkbox" id="discovery-flexible"> Só flexíveis / carga reduzida</label><label class="check-filter"><input type="checkbox" id="discovery-review"> Incluir remotas com localização a confirmar</label></div>
+      <p id="daily-update-status" class="daily-update-status">Atualização diária às 08:00 de Belém, com o servidor ativo.</p>
+      <div id="discovery-status" class="discovery-status" role="status" aria-live="polite">A busca consulta fontes públicas ao abrir esta aba. Não acessa suas contas ou candidaturas antigas.</div>
+      <div id="discovery-source-status" class="source-status"></div><p id="discovery-updated" class="discovery-updated"></p>
+      <div id="discovery-results"></div>
+      <details class="discovery-about"><summary>Sobre as fontes e suas candidaturas anteriores</summary><p>Fontes: Gupy (até 50 anúncios por termo em Belém e mais 50 remotos) e Remotive (vagas remotas). A busca não cobre todos os sites nem garante que uma vaga continue aberta. Confira o anúncio antes de se candidatar. A Remotive disponibiliza anúncios com atraso de 24 horas; seus dados são atualizados no máximo a cada 6 horas. A Gupy é consultada no máximo a cada hora por termo após uma resposta válida.</p><p>Vagas remotas sem confirmação geográfica ficam ocultas por padrão. Para incluí-las, marque a opção acima e confirme que permitem trabalhar de Belém antes de salvar. Anúncios de farmacêutico que exigem formação concluída e cargos seniores não entram nas recomendações.</p><p><strong>A busca não descobre onde você já se candidatou.</strong> Para recuperar esse histórico precisamos de confirmações por e-mail ou dados das plataformas que você usou. Não é necessário fornecer senha aqui. “Já salva” significa apenas que o anúncio está neste organizador.</p><p>No HTML baixado, a Gupy não permite atualização direta pelo navegador: é necessário usar o aplicativo com servidor. Se este HTML trouxer uma cópia de anúncios, ela aparece identificada com a data da consulta e deixa de ser usada após 7 dias. As outras fontes também precisam de internet e de permissão de consulta pelo navegador. Quando uma fonte falha, mostramos o erro; o organizador e seus dados locais continuam disponíveis. Na versão com servidor, a atualização é diária às 08:00 de Belém, mesmo sem a página aberta, desde que o servidor permaneça ativo. Se o servidor estava desligado, ele atualiza ao iniciar. A página confere novidades ao abrir a busca, ao voltar para ela e enquanto estiver aberta. O HTML baixado não recebe atualizações automáticas da Gupy.</p></details>
+    </section>
+    <div id="saved-workspace" role="tabpanel" aria-labelledby="saved-tab">
+    <section class="stats" aria-label="Resumo das oportunidades">
+      <article class="stat"><div><span>Total de vagas salvas</span><strong id="stat-saved">0</strong><small>Todas as suas oportunidades</small></div><span class="stat-icon green" aria-hidden="true">▤</span></article>
+      <article class="stat"><div><span>Candidaturas enviadas</span><strong id="stat-sent">0</strong><small>Passos em direção ao novo</small></div><span class="stat-icon blue" aria-hidden="true"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m21 3-7 18-4-7-7-4 18-7ZM10 14l5-5"/></svg></span></article>
+      <article class="stat"><div><span>Entrevistas marcadas</span><strong id="stat-interviews">0</strong><small>Hora de mostrar seu potencial</small></div><span class="stat-icon peach" aria-hidden="true">▦</span></article>
+    </section>
+    <section class="agenda" aria-label="Prazos e entrevistas"><div class="agenda-heading"><span class="agenda-icon" aria-hidden="true">◷</span><div><h2>No seu radar</h2><p>Prazos e próximos encontros</p></div><span class="timezone">Horário de Belém · UTC−3</span></div><div id="agenda-content" class="agenda-content"></div></section>
+    <section class="opportunities" id="oportunidades"><div class="section-heading"><h2>Minhas oportunidades <span id="list-count">0</span></h2><button id="backup-button" class="text-button"><span aria-hidden="true">⇅</span> Backup e dados</button></div>
+      <div class="filters"><div class="search-field"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Buscar por empresa ou cargo" aria-label="Buscar por empresa ou cargo"></div><select id="filter-mode" aria-label="Filtrar por modalidade"><option value="">Todas as modalidades</option></select><select id="filter-type" aria-label="Filtrar por contratação"><option value="">Todas as contratações</option></select><select id="filter-status" aria-label="Filtrar por status"><option value="">Todos os status</option></select></div>
+      <div class="results-meta" id="results-meta" hidden><span id="result-text"></span><button id="clear-filters" class="text-button">Limpar filtros</button></div>
+      <div id="jobs-list"></div>
+    </section>
+    </div>
+    <footer class="main-footer"><span><span aria-hidden="true">♧</span> Pequenos passos. Novas possibilidades.</span><span>Feito para a sua próxima conquista.</span></footer>
+  </div>
+</main>
+</div>
+<dialog id="job-dialog" aria-labelledby="job-dialog-title">
+  <form id="job-form">
+    <div class="dialog-header"><div><div class="eyebrow">UM NOVO COMEÇO</div><h2 id="job-dialog-title">Cadastrar oportunidade</h2><p>Só empresa e cargo são obrigatórios. O resto pode vir depois.</p></div><button type="button" class="icon-button close-dialog" aria-label="Fechar">×</button></div>
+    <div class="form-body">
+      <h3>Sobre a oportunidade</h3><div class="form-grid">
+      <label>Empresa <span class="required">*</span><input name="company" required maxlength="200" placeholder="Nome da empresa" autocomplete="organization"></label>
+      <label>Cargo <span class="required">*</span><input name="role" required maxlength="200" placeholder="Ex.: Assistente administrativo"></label>
+      <label>Modalidade<select name="mode"><option value="">Não informada</option></select></label>
+      <label>Cidade da empresa / vaga<input name="city" maxlength="200" placeholder="Ex.: Belém (PA)"><small id="city-hint">Informe a localização, se souber.</small></label>
+      <div class="form-notice wide" id="location-notice">Presencial e híbrido: somente Belém (PA). Para vagas remotas, confira se a empresa permite trabalhar de Belém.</div>
+      <label>Tipo de contratação<select name="type"><option value="">Não informado</option></select></label>
+      <label>Salário / remuneração<input name="salary" maxlength="200" placeholder="Ex.: R$ 2.500/mês ou a combinar"></label>
+      <label>Jornada<input name="hours" maxlength="200" placeholder="Ex.: 40h semanais"></label>
+      <label>Prazo para candidatura<input name="deadline" type="date"></label>
+      <label>Link do anúncio<input name="url" type="url" maxlength="2000" placeholder="https://..."></label>
+      <label>Contato<input name="contact" maxlength="500" placeholder="E-mail, telefone ou nome"></label>
+      </div>
+      <h3>Seu acompanhamento</h3><div class="form-grid">
+      <label>Status<select name="status"></select></label>
+      <label>Data de envio do currículo<input name="sentDate" type="date"></label>
+      <label>Versão do currículo<input name="resume" maxlength="200" placeholder="Ex.: Currículo administrativo — v2"></label>
+      <label>Entrevista · horário de Belém<input name="interview" type="datetime-local"><small>Belém (PA), UTC−3, sem conversão do aparelho.</small></label>
+      <label class="wide">Observações<textarea name="notes" rows="4" maxlength="10000" placeholder="Requisitos, próximos passos e o que você quer lembrar..."></textarea></label>
+      </div><p class="form-error" id="form-error" role="alert" hidden></p>
+    </div>
+    <div class="dialog-footer"><button type="button" class="button secondary close-dialog">Cancelar</button><button type="submit" class="button primary">Salvar vaga</button></div>
+  </form>
+</dialog>
+<dialog id="backup-dialog" aria-labelledby="backup-title"><div class="dialog-header"><div><div class="eyebrow">SEUS DADOS COM VOCÊ</div><h2 id="backup-title">Backup e dados</h2></div><button class="icon-button close-dialog" aria-label="Fechar">×</button></div><div class="form-body backup-body"><p>Suas vagas ficam salvas <strong>somente neste navegador e neste endereço</strong>, sem login e sem envio para um servidor. Elas permanecem ao fechar a página, mas podem ser perdidas ao limpar os dados do navegador ou usar uma janela anônima.</p><section><span class="backup-step">01</span><h3>Guarde uma cópia</h3><p>Exporte um arquivo JSON com todos os registros e detalhes. Faça isso regularmente e antes de trocar de aparelho.</p><button id="export-button" class="button primary">↓ Exportar backup</button></section><section><span class="backup-step">02</span><h3>Leve para outro aparelho</h3><p>Transfira o arquivo para o novo aparelho. Abra o Minhas Vagas lá, vá em <strong>Backup e dados</strong> e escolha <strong>Importar backup</strong>.</p><p>A importação substitui a lista atual após sua confirmação. Exporte a lista atual antes, se quiser preservá-la.</p><label class="button secondary file-label" for="import-file">↑ Importar backup</label><input id="import-file" type="file" accept="application/json,.json" class="visually-hidden"><small>O arquivo pode conter informações pessoais. Guarde-o em um local seguro.</small></section><p id="backup-error" class="form-error" role="alert" hidden></p></div><div class="dialog-footer"><button class="button secondary close-dialog">Concluir</button></div></dialog>
+<dialog id="confirm-dialog" aria-labelledby="confirm-title"><div class="dialog-header"><h2 id="confirm-title">Confirmar ação</h2></div><div class="form-body"><p id="confirm-message"></p></div><div class="dialog-footer"><button class="button secondary" id="confirm-cancel">Cancelar</button><button class="button danger" id="confirm-ok">Confirmar</button></div></dialog>
+<dialog id="help-dialog" aria-labelledby="help-title"><div class="dialog-header"><div><div class="eyebrow">SEU ESPAÇO, NO SEU RITMO</div><h2 id="help-title">Como funciona</h2></div><button class="icon-button close-dialog" aria-label="Fechar">×</button></div><div class="form-body help-body"><p><strong>1. Encontre uma oportunidade.</strong> Clique em “Cadastrar vaga” e preencha empresa e cargo. Os outros campos são opcionais.</p><p><strong>2. Acompanhe cada passo.</strong> Mude o status no cartão ou edite a vaga para registrar currículo, entrevista e observações.</p><p><strong>3. Fique de olho no radar.</strong> Ele mostra prazos nos próximos 7 dias (incluindo hoje) e entrevistas futuras. Todas as datas de agenda usam o horário de Belém.</p><p><strong>4. Cuide dos seus dados.</strong> Exporte um backup regularmente. Para transferir suas vagas, importe esse arquivo no outro aparelho.</p><div class="form-notice">Presencial e híbrido, inclusive freelance: somente Belém (PA). Vagas remotas precisam permitir que você trabalhe de Belém; confirme essa condição no anúncio.</div><p class="subtle">“Vagas salvas” conta todos os registros. “Candidaturas enviadas” considera a data de envio ou o status a partir de “Currículo enviado” (exceto “Vaga encerrada” sem data). “Entrevistas marcadas” conta o status correspondente.</p></div><div class="dialog-footer"><button class="button primary close-dialog">Entendi</button></div></dialog>
+<div id="toast" class="toast" role="status" hidden></div>
+<div id="storage-warning" class="storage-warning" role="alert" hidden></div>
+</body></html>
