@@ -1,6 +1,7 @@
-import { readFile,writeFile,mkdir,copyFile } from 'node:fs/promises';
+import { readFile,writeFile,mkdir } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
+import { createHash } from 'node:crypto';
 import { collectDiscovery } from '../discovery-api.js';
 import { sourceJSON } from '../discovery-server.mjs';
 import { nextDailyUpdate } from '../daily-discovery.js';
@@ -10,11 +11,14 @@ const data=inputFlag>=0?JSON.parse(await readFile(resolve(process.argv[inputFlag
 if(data.version!==1||!Array.isArray(data.jobs)||!Array.isArray(data.sources)||!data.sources.some(s=>s.state==='ok'))throw new Error('Nenhuma fonte respondeu. A versão anterior do site deve permanecer publicada.');
 data.schedule={mode:'static-daily',time:'08:00',timeZone:'America/Belem',nextUpdateAt:nextDailyUpdate(new Date(data.fetchedAt))};
 await mkdir(new URL('data/',output),{recursive:true});
+const files=['styles.css','model.js','daily-discovery.js','discovery-model.js','discovery-api.js','public-sources.js','discovery-ui.js','app.js'];
+const contents=await Promise.all(files.map(file=>readFile(new URL(file,root),'utf8')));
+const revision=createHash('sha256').update(contents.join('\n')).digest('hex').slice(0,12);
 let html=await readFile(new URL('index.html',root),'utf8');
-html=html.replace('<body>','<body data-discovery-source="daily-file">').replace('href="/styles.css"','href="./styles.css"').replace('src="/app.js"','src="./app.js"').replace('class="brand" href="/"','class="brand" href="./"');
+html=html.replace('<body>','<body data-discovery-source="daily-file">').replace('href="/styles.css"','href="./styles.css?v='+revision+'"').replace('src="/app.js"','src="./app.js?v='+revision+'"').replace('class="brand" href="/"','class="brand" href="./"');
 html=html.replace('com o servidor ativo.','pelo agendador do site, sem depender do seu notebook.');
 await writeFile(new URL('index.html',output),html);
-for(const file of ['styles.css','model.js','daily-discovery.js','discovery-model.js','discovery-api.js','public-sources.js','discovery-ui.js','app.js'])await copyFile(new URL(file,root),new URL(file,output));
+for(let i=0;i<files.length;i++){const content=files[i].endsWith('.js')?contents[i].replace(/from (['"])(\.\/[^'"]+\.js)\1/g,(_,quote,path)=>'from '+quote+path+'?v='+revision+quote):contents[i];await writeFile(new URL(files[i],output),content);}
 await writeFile(new URL('data/vagas.json',output),JSON.stringify(data));
 await writeFile(new URL('.nojekyll',output),'');
 console.log(`Site diário preparado em ${fileURLToPath(output)} · ${data.jobs.length} sugestões · consulta de ${data.fetchedAt}`);
