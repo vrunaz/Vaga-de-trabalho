@@ -15,3 +15,7 @@
 .source-pill.source-snapshot{background:#eaf0f7;color:#6e839d}
 
 .daily-update-status{font-size:12px;line-height:1.8;color:#647e6d;background:#eaf3ed;padding:13px 16px;border:1px solid #dbe8df;border-radius:8px;margin:0 0 14px}
+
+.discovery-requirements{display:grid;grid-template-columns:100px 1fr;gap:9px 12px;font-size:12px;line-height:1.8;margin:18px 0;color:#718674}.discovery-requirements dt{font-weight:600}.discovery-requirements dd{margin:0;overflow-wrap:anywhere}.discovery-requirements a{color:var(--green)}.brazil-confirmed{font-size:11px;line-height:1.8;background:#edf5ee;padding:10px;border-radius:6px;color:#66816c}.source-group{flex:1 1 220px;min-width:0;border:1px solid var(--border);border-radius:7px;background:#fff}.source-group summary{padding:10px 12px;cursor:pointer;display:list-item;margin:0;border-radius:6px;line-height:1.8;list-style-position:inside}.source-group ul{padding:0 18px 10px 28px;font-size:11px;line-height:1.8;color:#7e8a7c;overflow-wrap:anywhere}.source-group li{margin:10px 0}.source-group p{margin:4px 0;color:#987c58}@media(max-width:600px){.discovery-requirements{grid-template-columns:1fr;gap:3px;font-size:12px}.discovery-requirements dd{margin-bottom:10px}.source-group{flex-basis:100%}.brazil-confirmed{font-size:12px}}
+
+.sources-heading{font-size:13px;color:#627a69;margin:24px 0 12px;font-weight:600}.sources-heading small{display:block;font-size:11px;font-weight:400;color:#8a9786;margin-top:7px}

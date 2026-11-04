@@ -37,7 +37,7 @@ export function createDailyDiscovery({collect,readCache=async()=>null,writeCache
       const errors=state.data.sources.some(s=>s.state==='error');
       if(isDailyFresh(state.data.fetchedAt,now) && !errors)return response(now);
       const sinceAttempt=now.getTime()-Date.parse(state.lastAttemptAt);
-      if(errors && sinceAttempt>=0 && sinceAttempt<RETRY_MS)return response(now);
+      if((errors||!state.data.sources.some(s=>s.state==='ok')) && sinceAttempt>=0 && sinceAttempt<RETRY_MS)return response(now);
     }
     flight=(async()=>{
       let fresh;
@@ -46,7 +46,7 @@ export function createDailyDiscovery({collect,readCache=async()=>null,writeCache
       }catch {
         fresh={version:1,fetchedAt:now.toISOString(),jobs:[],sources:[{name:'Busca de vagas',state:'error',message:'Não foi possível atualizar as fontes.'}]};
       }
-      const allFailed=fresh.sources.length>0 && fresh.sources.every(s=>s.state==='error');
+      const allFailed=fresh.sources.length>0 && !fresh.sources.some(s=>s.state==='ok');
       const data=allFailed && state?.data.jobs.length?{...fresh,jobs:state.data.jobs,fetchedAt:state.data.fetchedAt,stale:true}:fresh;
       state={version:1,lastAttemptAt:now.toISOString(),data};
       try{await writeCache(state);cacheWarning='';}catch{cacheWarning='A consulta foi feita, mas não foi possível guardar o cache para o próximo reinício.';}

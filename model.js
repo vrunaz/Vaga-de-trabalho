@@ -1,7 +1,7 @@
 export const STORAGE_KEY = 'minhas-vagas:v1';
 export const STATUSES = ['Salvei', 'Currículo enviado', 'Entrevista marcada', 'Aguardando retorno', 'Aprovada', 'Não selecionada', 'Vaga encerrada'];
 export const MODES = ['Presencial', 'Híbrida', 'Remota'];
-export const TYPES = ['CLT', 'Temporário', 'Estágio', 'Freelance'];
+export const TYPES = ['CLT', 'Efetivo', 'Temporário', 'Estágio', 'Freelance', 'Diária', 'Meio período', 'Tempo integral', 'Por tarefa', 'Contrato/PJ'];
 export const FIELDS = ['company','role','city','mode','type','salary','hours','url','contact','deadline','status','sentDate','resume','interview','notes'];
 export function normalizeJob(input) {
   if (!input || typeof input !== 'object' || Array.isArray(input)) throw new Error('Registro de vaga inválido.');

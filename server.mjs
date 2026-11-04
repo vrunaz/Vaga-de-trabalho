@@ -3,7 +3,7 @@ import { discover, startDailyUpdates } from './discovery-server.mjs';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 const root = new URL('./', import.meta.url);
-const files = { '/daily-discovery.js':['daily-discovery.js','text/javascript'], '/discovery-model.js':['discovery-model.js','text/javascript'], '/discovery-api.js':['discovery-api.js','text/javascript'], '/discovery-ui.js':['discovery-ui.js','text/javascript'], '/': ['index.html','text/html'], '/index.html': ['index.html','text/html'], '/styles.css': ['styles.css','text/css'], '/app.js': ['app.js','text/javascript'], '/model.js': ['model.js','text/javascript'] };
+const files = { '/public-sources.js':['public-sources.js','text/javascript'], '/daily-discovery.js':['daily-discovery.js','text/javascript'], '/discovery-model.js':['discovery-model.js','text/javascript'], '/discovery-api.js':['discovery-api.js','text/javascript'], '/discovery-ui.js':['discovery-ui.js','text/javascript'], '/': ['index.html','text/html'], '/index.html': ['index.html','text/html'], '/styles.css': ['styles.css','text/css'], '/app.js': ['app.js','text/javascript'], '/model.js': ['model.js','text/javascript'] };
 const server = http.createServer(async (req,res) => {
   const pathname = new URL(req.url,'http://localhost').pathname;
   if(pathname==='/api/discover') {

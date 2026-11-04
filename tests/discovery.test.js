@@ -39,7 +39,7 @@ test('Localização incerta fica oculta por padrão e só entra com opção expl
 });
 test('Não repete anúncios, não presume candidatura e mantém detalhes no backup',()=>{
   const result=prepareResults([rem(),rem({url:'https://remotive.com/remote-jobs/test/1?utm_source=other'})]);assert.equal(result.length,1);
-  const saved=normalizeJob(resultToJob(result[0]));assert.equal(saved.status,'Salvei');assert.equal(saved.type,'');assert.ok(saved.notes.includes('Fonte: Remotive'));
+  const saved=normalizeJob(resultToJob(result[0]));assert.equal(saved.status,'Salvei');assert.equal(saved.type,'');assert.ok(saved.notes.includes('Fontes: Remotive: https://remotive.com/'));
   assert.equal(isSavedResult(result[0],[saved]).id,saved.id);assert.deepEqual(parseBackup(JSON.stringify(makeBackup([saved]))),[saved]);
 });
 test('Rejeita formatos inesperados, links inseguros, vagas sem link e prazos encerrados',()=>{
@@ -77,6 +77,7 @@ test('HTML usa cópia real datada sem chamar de consulta atual e recusa cópia c
   const snapshot={version:1,fetchedAt,sources:[{name:source,state:'ok',count:1}],jobs:prepareResults([local()],new Date(fetchedAt))};
   const result=withGupySnapshot(data,snapshot,new Date('2026-11-04T13:00:00Z'));
   assert.equal(result.jobs.length,1);assert.equal(result.sources[0].state,'snapshot');assert.equal(result.snapshotAt,fetchedAt);
+  const restricted={...data,sources:[{name:source,state:'restricted'}]};assert.equal(withGupySnapshot(restricted,snapshot,new Date('2026-11-04T13:00:00Z')).jobs.length,1);
   assert.equal(withGupySnapshot(data,snapshot,new Date('2026-11-12T13:00:00Z')).jobs.length,0);
   const live={...data,sources:[{name:source,state:'ok'}]};assert.deepEqual(withGupySnapshot(live,snapshot,new Date('2026-11-04T13:00:00Z')),live);
 });

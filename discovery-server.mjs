@@ -4,18 +4,19 @@ import { readFile,writeFile,mkdir,rename } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { createDailyDiscovery } from './daily-discovery.js';
-import { collectDiscovery, SOURCES } from './discovery-api.js';
+import { collectDiscovery, SOURCES, DISCOVERY_REVISION } from './discovery-api.js';
 const exec=promisify(execFile),cache=new Map(),pending=new Map(),failures=new Map();
 // Fixed destinations only. curl preserves the environment's proxy and TLS trust.
 export async function sourceJSON(url,ttl) {
-  if(!SOURCES.some(s=>s.url===url))throw new Error('Fonte desconhecida.');
+  const source=SOURCES.find(s=>s.url===url);
+  if(!source)throw new Error('Fonte desconhecida.');
   if(Date.now()-(failures.get(url)||0)<30000)throw new Error('A fonte falhou recentemente.');
   const old=cache.get(url);if(old && Date.now()-old.time<ttl)return old.data;
   if(pending.has(url))return pending.get(url);
   const task=(async()=>{
     try {
-      const {stdout}=await exec('curl',['--fail','--silent','--show-error','--max-time','18','--max-filesize','15000000','--proto','=https',url],{maxBuffer:16*1024*1024,timeout:20000});
-      const data=JSON.parse(stdout);cache.set(url,{time:Date.now(),data});return data;
+      const {stdout}=await exec('curl',['--fail','--location','--max-redirs','3','--proto-redir','=https','--silent','--show-error','--max-time','18','--max-filesize','15000000','--proto','=https',url],{maxBuffer:16*1024*1024,timeout:20000});
+      const data=source.format==='html'?{html:stdout}:JSON.parse(stdout);cache.set(url,{time:Date.now(),data});return data;
     } catch(error){failures.set(url,Date.now());const http=String(error.stderr||'').match(/(?:error:|returned error:)\s*(\d{3})/);if(http)throw new Error('HTTP '+http[1]);throw error;} finally {pending.delete(url);}
   })();pending.set(url,task);return task;
 }
@@ -23,7 +24,7 @@ const cacheDirectory=process.env.MINHAS_VAGAS_CACHE_DIR?pathToFileURL(resolve(pr
 const cacheFile=new URL('public-discovery.json',cacheDirectory);
 const daily=createDailyDiscovery({
   collect:()=>collectDiscovery(sourceJSON),
-  readCache:async()=>{try{return JSON.parse(await readFile(cacheFile,'utf8'));}catch(error){if(error.code==='ENOENT')return null;throw error;}},
+  readCache:async()=>{try{const state=JSON.parse(await readFile(cacheFile,'utf8'));return state.data?.discoveryRevision===DISCOVERY_REVISION?state:null;}catch(error){if(error.code==='ENOENT')return null;throw error;}},
   writeCache:async state=>{
     await mkdir(cacheDirectory,{recursive:true});
     const temporary=new URL('public-discovery.'+process.pid+'.tmp',cacheDirectory);

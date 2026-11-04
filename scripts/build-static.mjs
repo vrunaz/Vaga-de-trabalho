@@ -14,7 +14,7 @@ let html=await readFile(new URL('index.html',root),'utf8');
 html=html.replace('<body>','<body data-discovery-source="daily-file">').replace('href="/styles.css"','href="./styles.css"').replace('src="/app.js"','src="./app.js"').replace('class="brand" href="/"','class="brand" href="./"');
 html=html.replace('com o servidor ativo.','pelo agendador do site, sem depender do seu notebook.');
 await writeFile(new URL('index.html',output),html);
-for(const file of ['styles.css','model.js','daily-discovery.js','discovery-model.js','discovery-api.js','discovery-ui.js','app.js'])await copyFile(new URL(file,root),new URL(file,output));
+for(const file of ['styles.css','model.js','daily-discovery.js','discovery-model.js','discovery-api.js','public-sources.js','discovery-ui.js','app.js'])await copyFile(new URL(file,root),new URL(file,output));
 await writeFile(new URL('data/vagas.json',output),JSON.stringify(data));
 await writeFile(new URL('.nojekyll',output),'');
 console.log(`Site diário preparado em ${fileURLToPath(output)} · ${data.jobs.length} sugestões · consulta de ${data.fetchedAt}`);

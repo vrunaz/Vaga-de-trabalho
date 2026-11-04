@@ -6,7 +6,7 @@ const read=file=>readFile(new URL(file,root),'utf8');
 let html=await read('index.html');
 const css=await read('styles.css');
 let javascript='';
-for(const file of ['model.js','daily-discovery.js','discovery-model.js','discovery-api.js','discovery-ui.js','app.js']){
+for(const file of ['model.js','daily-discovery.js','discovery-model.js','public-sources.js','discovery-api.js','discovery-ui.js','app.js']){
   const source=(await read(file)).replace(/^import .*?;\n/gm,'').replace(/^export /gm,'');
   javascript+='\n'+source;
 }
