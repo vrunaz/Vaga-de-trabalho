@@ -40,7 +40,7 @@ O servidor usa `curl` (com TLS e proxy do ambiente) para consultar destinos fixo
 
 ## Hospedagem com atualização diária pelo GitHub Pages
 
-A rotina `.github/workflows/vagas-diarias.yml` foi enviada à branch `main` de `vrunaz/Meu-primeiro-projeto`, está registrada como **active** e a primeira execução foi iniciada. Os testes e a busca real passaram no GitHub Actions, mas a publicação falhou em `actions/configure-pages@v5` porque o Pages não está habilitado. A integração recebeu HTTP 403 ao tentar habilitá-lo. Ainda não existe site público validado. [Primeira execução](https://github.com/vrunaz/Meu-primeiro-projeto/actions/runs/41930793523). O fluxo usa GitHub Actions para consultar as fontes uma vez por dia e publicar um site estático: o navegador recebe `data/vagas.json` do próprio site, portanto não precisa consultar a Gupy diretamente e não enfrenta o bloqueio CORS dela. Os dados pessoais continuam somente no navegador e não são enviados ao GitHub.
+Site publicado: **https://vrunaz.github.io/Meu-primeiro-projeto/**. O proprietário habilitou GitHub Pages com origem GitHub Actions. A [publicação 41931845323](https://github.com/vrunaz/Meu-primeiro-projeto/actions/runs/41931845323) foi concluída com sucesso em 04/11/2026. O HTML e `data/vagas.json` responderam HTTP 200, com 119 sugestões e nenhuma fonte em erro naquela consulta. O workflow está **active** com cron `0 11 * * *` (08:00 de Belém). O horário é agendado pelo GitHub e pode atrasar; a primeira execução diária futura ainda não aconteceu nesta verificação. O fluxo usa GitHub Actions para consultar as fontes uma vez por dia e publicar um site estático: o navegador recebe `data/vagas.json` do próprio site, portanto não precisa consultar a Gupy diretamente e não enfrenta o bloqueio CORS dela. Os dados pessoais continuam somente no navegador e não são enviados ao GitHub.
 
 Para ativar, com autorização do proprietário:
 
@@ -51,7 +51,7 @@ Para ativar, com autorização do proprietário:
 
 GitHub Pages costuma ser gratuito para repositórios públicos; a disponibilidade para privados depende do plano da conta. O site e os anúncios publicados são públicos. Seus registros de candidatura não são incluídos no site. Importar um backup permite levar sua lista do HTML antigo ao endereço novo.
 
-Se nenhuma fonte responder, a geração falha e a versão anteriormente publicada permanece disponível; a data antiga não é trocada por uma consulta fictícia. Se apenas algumas fontes falharem, o site mostra a consulta parcial. O primeiro deploy ainda depende da habilitação do Pages pelo proprietário. O workflow está ativo e contém o cron diário, mas a atualização do site só poderá ser confirmada após um deploy bem-sucedido. O repositório foi mantido privado; nenhuma alteração de visibilidade foi realizada.
+Se nenhuma fonte responder, a geração falha e a versão anteriormente publicada permanece disponível; a data antiga não é trocada por uma consulta fictícia. Se apenas algumas fontes falharem, o site mostra a consulta parcial. O primeiro deploy foi concluído e o site foi verificado por HTTP. O workflow diário está ativo; monitore a data da consulta mostrada no aplicativo e o histórico em Actions para confirmar cada execução agendada.
 
 Para validar localmente a geração sem publicar:
 
