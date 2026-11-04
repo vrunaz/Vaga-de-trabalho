@@ -40,18 +40,18 @@ O servidor usa `curl` (com TLS e proxy do ambiente) para consultar destinos fixo
 
 ## Hospedagem com atualização diária pelo GitHub Pages
 
-Foi preparada a rotina `.github/workflows/vagas-diarias.yml`, mas ela **não foi enviada ao GitHub, ativada ou publicada**. Não existe ainda um endereço público novo validado. O fluxo usa GitHub Actions para consultar as fontes uma vez por dia e publicar um site estático: o navegador recebe `data/vagas.json` do próprio site, portanto não precisa consultar a Gupy diretamente e não enfrenta o bloqueio CORS dela. Os dados pessoais continuam somente no navegador e não são enviados ao GitHub.
+A rotina `.github/workflows/vagas-diarias.yml` foi enviada à branch `main` de `vrunaz/Meu-primeiro-projeto`, está registrada como **active** e a primeira execução foi iniciada. Os testes e a busca real passaram no GitHub Actions, mas a publicação falhou em `actions/configure-pages@v5` porque o Pages não está habilitado. A integração recebeu HTTP 403 ao tentar habilitá-lo. Ainda não existe site público validado. [Primeira execução](https://github.com/vrunaz/Meu-primeiro-projeto/actions/runs/41930793523). O fluxo usa GitHub Actions para consultar as fontes uma vez por dia e publicar um site estático: o navegador recebe `data/vagas.json` do próprio site, portanto não precisa consultar a Gupy diretamente e não enfrenta o bloqueio CORS dela. Os dados pessoais continuam somente no navegador e não são enviados ao GitHub.
 
 Para ativar, com autorização do proprietário:
 
-1. Envie o projeto e o workflow ao repositório GitHub, na branch padrão. Nenhum envio foi feito nesta tarefa.
+1. O projeto e o workflow já estão enviados à branch `main`. A publicação foi autorizada pelo proprietário nesta conversa.
 2. No repositório, abra **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 3. Em **Actions → Minhas Vagas — atualização diária → Run workflow**, execute a primeira publicação.
 4. Abra o endereço fornecido pelo deploy do GitHub Pages. O horário agendado é `0 11 * * *` (11:00 UTC = 08:00 de Belém). O GitHub pode atrasar execuções e, em repositórios públicos sem atividade, pode desativar agendamentos após 60 dias. Confira a data da última consulta; o aplicativo avisa quando a atualização esperada não está disponível.
 
 GitHub Pages costuma ser gratuito para repositórios públicos; a disponibilidade para privados depende do plano da conta. O site e os anúncios publicados são públicos. Seus registros de candidatura não são incluídos no site. Importar um backup permite levar sua lista do HTML antigo ao endereço novo.
 
-Se nenhuma fonte responder, a geração falha e a versão anteriormente publicada permanece disponível; a data antiga não é trocada por uma consulta fictícia. Se apenas algumas fontes falharem, o site mostra a consulta parcial. O primeiro deploy e a execução diária externa ainda precisam ser ativados e confirmados no GitHub.
+Se nenhuma fonte responder, a geração falha e a versão anteriormente publicada permanece disponível; a data antiga não é trocada por uma consulta fictícia. Se apenas algumas fontes falharem, o site mostra a consulta parcial. O primeiro deploy ainda depende da habilitação do Pages pelo proprietário. O workflow está ativo e contém o cron diário, mas a atualização do site só poderá ser confirmada após um deploy bem-sucedido. O repositório foi mantido privado; nenhuma alteração de visibilidade foi realizada.
 
 Para validar localmente a geração sem publicar:
 
@@ -112,4 +112,4 @@ Ela verifica cadastro mínimo, edição, persistência após recarregar, todas a
 
 - `daily-discovery.js`: regra de atualização diária, recuperação e cache entre reinícios.
 - `scripts/build-static.mjs`: site com anúncios públicos no mesmo domínio.
-- `.github/workflows/vagas-diarias.yml`: publicação diária preparada, ainda não ativada.
+- `.github/workflows/vagas-diarias.yml`: rotina diária enviada e ativa; publicação bloqueada até habilitar Pages.
